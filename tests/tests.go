@@ -4,13 +4,19 @@ import (
 	"fmt"
 	"math"
 	"math/rand"
+	"slices"
 	"sorting/counting"
+	"sorting/heap"
 	"sorting/insertion"
 	"sorting/merge"
 	"sorting/quick"
 	"sorting/selection"
 	"time"
 )
+
+func packageSort(a []int) {
+	slices.Sort(a)
+}
 
 func main() {
 	alg := map[string]func([]int){
@@ -20,10 +26,12 @@ func main() {
 		"m2": merge.SortInt2,
 		"c":  counting.SortInt,
 		"q":  quick.SortInt,
-		"q2": quick.SortInt2}
+		"q2": quick.SortInt2,
+		"p":  packageSort,
+		"h":  heap.SortInt}
 
 	// testAlg(alg["q"], 10)
-	compareAlg(alg["q2"], alg["m2"], 1)
+	compareAlg(alg["q"], alg["s"], 1)
 }
 
 func numIts(n int) int {

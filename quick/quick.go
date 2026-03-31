@@ -11,62 +11,62 @@ func SortInt(a []int) {
 	quicksort(a, 0, len(a))
 }
 
-func quicksort(a []int, lowX, highX int) {
+func quicksort(a []int, lowInd, highInd int) {
 
 	// Step 0: check for completion
-	if lowX >= highX {
+	if lowInd >= highInd {
 		return
 	}
 
 	// Step 1: select pivot
 	if pivotChoice {
-		swapPivot(a, lowX, highX)
+		swapPivot(a, lowInd, highInd)
 	}
-	pivot := a[lowX]
+	pivot := a[lowInd]
 
 	// Step 2: partition items to lower or upper portions of the temp list
-	pivotX := partition(a, lowX, highX, pivot)
+	pivotX := partition(a, lowInd, highInd, pivot)
 
 	// Step 3: sort both halves of the list
-	quicksort(a, lowX, pivotX)
-	quicksort(a, pivotX+1, highX)
+	quicksort(a, lowInd, pivotX)
+	quicksort(a, pivotX+1, highInd)
 }
 
-func swapPivot(a []int, low, high int) {
-	if high-low < 3 {
+func swapPivot(a []int, lowInd, highInd int) {
+	if highInd-lowInd < 3 {
 		return
 	}
-	mid := (low + high) / 2
+	midInd := (lowInd + highInd) / 2
 
 	// find median of three indices
-	high--
-	if a[low] < a[mid] {
-		if a[mid] <= a[high] {
-			a[low], a[mid] = a[mid], a[low]
-		} else if a[low] < a[high] {
-			a[low], a[high] = a[high], a[low]
+	highInd--
+	if a[lowInd] < a[midInd] {
+		if a[midInd] <= a[highInd] {
+			a[lowInd], a[midInd] = a[midInd], a[lowInd]
+		} else if a[lowInd] < a[highInd] {
+			a[lowInd], a[highInd] = a[highInd], a[lowInd]
 		} else {
 		}
 	} else {
-		if a[low] <= a[high] {
-		} else if a[mid] < a[high] {
-			a[low], a[high] = a[high], a[low]
+		if a[lowInd] <= a[highInd] {
+		} else if a[midInd] < a[highInd] {
+			a[lowInd], a[highInd] = a[highInd], a[lowInd]
 		} else {
-			a[low], a[mid] = a[mid], a[low]
+			a[lowInd], a[midInd] = a[midInd], a[lowInd]
 		}
 	}
 }
 
-func partition(a []int, lowX, highX, pivot int) int {
-	x := lowX
-	y := highX - 1
+func partition(a []int, lowInd, highInd, pivot int) int {
+	x := lowInd
+	y := highInd - 1
 	for x < y {
 		// Advance x until we find a too-big value (or overshoot the end of the list)
-		for x < highX && a[x] <= pivot {
+		for x < highInd && a[x] <= pivot {
 			x++
 		}
 		// Advance y (backwards) until we find a too-small value (or undershoot start)
-		for y >= lowX && a[y] > pivot {
+		for y >= lowInd && a[y] > pivot {
 			y--
 		}
 		if x < y {
@@ -74,6 +74,6 @@ func partition(a []int, lowX, highX, pivot int) int {
 		}
 	}
 	// place pivot in remaining spot
-	a[lowX], a[y] = a[y], a[lowX]
+	a[lowInd], a[y] = a[y], a[lowInd]
 	return y
 }

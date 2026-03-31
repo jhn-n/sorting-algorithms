@@ -3,15 +3,15 @@ package counting
 func SortInt(a []int) {
 	// first find max value
 	max_int := 0
-	for _, x := range a {
-		if x > max_int {
-			max_int = x
+	for _, val := range a {
+		if val > max_int {
+			max_int = val
 		}
 	}
 	// use array slice to count entities
 	counts := make([]int, max_int+1)
-	for _, x := range a {
-		counts[x] += 1
+	for _, val := range a {
+		counts[val] += 1
 	}
 
 	// write ordered values back to source
